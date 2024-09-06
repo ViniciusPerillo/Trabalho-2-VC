@@ -25,7 +25,6 @@ def load_model():
     return model.to(DEVICE)
 
 
-
 def run_model(processor: CLIPProcessor,
               model: CLIPModel,
               images: list,
@@ -40,8 +39,6 @@ def run_model(processor: CLIPProcessor,
     return output
 
 
-
-# TODO: only works for binary -- reformat to support 37-class task
 # TODO: Switch `shuffle` call to numpy? (for random_state)
 def sample_equally(dataset: OxfordIIITPet, n_images_each: int = 1000):
     cats = []
@@ -71,13 +68,3 @@ def batch_images(images: list, batch_size: int = 50):
 
     for i in range(0, len(images), batch_size):
         yield images[i : i + batch_size]
-
-
-
-def analyze_output(outputs):
-    print(f'{outputs.text_embeds.shape=}')
-    print(f'{outputs.image_embeds.shape=}')
-    print(f'{outputs.text_model_output.last_hidden_state.shape=}')
-    print(f'{outputs.text_model_output.pooler_output.shape=}')
-    print(f'{outputs.vision_model_output.last_hidden_state.shape=}')
-    print(f'{outputs.vision_model_output.pooler_output.shape=}')

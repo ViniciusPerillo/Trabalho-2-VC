@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# TODO: Make it work for all possible prompts
 
 def plot_similarities_histogram(similarities: dict,
                                 prompts: list[str],

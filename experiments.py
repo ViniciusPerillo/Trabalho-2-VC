@@ -5,11 +5,11 @@ from scipy.spatial.distance import cosine
 
 # TODO: Batch images?  --  should work normally due to np.stack
 # TODO: Make GPU support better  --  use more GPU
-# TODO: Add argparse for dataset path, etc
 # TODO: TD-1: Is this the best way to define marginal points?
 
 
 def run_experiment(prompts: list[str]):
+
     # Loading dataset, CLIP pre-processor and CLIP model
     ds = load_dataset()
     processor = load_processor()
@@ -18,13 +18,6 @@ def run_experiment(prompts: list[str]):
 
     # Sampling 1000 images of cats and dogs (cats come first)
     images = sample_equally(ds)
-
-
-    # Prompts to use with CLIP
-    # prompts = [
-    #     'Cat',
-    #     'Dog',
-    # ]
 
 
     # Running model and saving necessary information
@@ -53,13 +46,6 @@ def run_experiment(prompts: list[str]):
     embeds_image = np.stack(embeds_image, axis=0).squeeze()
 
 
-    print(f'{logits_image.shape=}')
-    print(f'{logits_text.shape=}')
-
-    print(f'{embeds_image.shape=}')
-    print(f'{embeds_text.shape=}')
-
-
     # Calculating cosine similarity between images and texts embeddings
 
     # Defining cat and dog indexes for better readability
@@ -71,7 +57,7 @@ def run_experiment(prompts: list[str]):
         prompts[1]: np.array([ cosine(img, embeds_text[DOG_IDX]) for img in embeds_image ])
     }
 
-    # Calculating marginal points - points that have low similarity for both `Cat` and `Dog`
+    # Calculating marginal points - points that have low similarity for both prompts
     NUM_MARGINAL = 10
     marginal_indexes = (similarities[prompts[0]] * similarities[prompts[1]]).argsort()[:NUM_MARGINAL]   # TD-1
 
@@ -84,3 +70,45 @@ def run_experiment(prompts: list[str]):
     marginal_images = [ images[m_idx] for m_idx in marginal_indexes ]
     for img in marginal_images:
         img.show()
+
+
+def run_accuracy_experiment():
+
+    # Loading dataset, CLIP pre-processor and CLIP model
+    ds = load_dataset(target_type="category")
+    processor = load_processor()
+    model = load_model()
+
+
+    # Creating prompts
+    class_names = [
+        "Abyssinian", "American Bulldog", "American Pit Bull Terrier", "Basset Hound",
+        "Beagle", "Bengal", "Birman", "Bombay", "Boxer", "British Shorthair", "Chihuahua",
+        "Egyptian Mau", "English Cocker Spaniel", "English Setter", "German Shorthaired",
+        "Great Pyrenees", "Havanese", "Japanese Chin", "Keeshond", "Leonberger", "Maine Coon",
+        "Miniature Pinscher", "Newfoundland", "Persian", "Pomeranian", "Pug", "Ragdoll", 
+        "Russian Blue", "Saint Bernard", "Samoyed","Scottish Terrier", "Shiba Inu", "Siamese", 
+        "Sphynx", "Staffordshire Bull Terrier", "Wheaten Terrier", "Yorkshire Terrier"
+    ]
+    prompts = [ f"A photo of a {c}, a type of pet" for c in class_names ]
+
+
+    # Running model and saving necessary information
+    logits_image = []
+    labels = []
+
+    for img, label in tqdm(ds, desc="Processing images"):
+        output = run_model(processor, model, [img], prompts)
+
+        logits_image.append( output.logits_per_image.cpu().detach().numpy() )
+        labels.append(       label                                          )
+
+
+    # Transforming logit activation in a probabilistic distribution
+    logits_image = np.stack(logits_image, axis=0).squeeze()
+    preds = logits_image.argmax(axis=1)
+
+    
+    # Calculating and printing accuracy
+    acc = (preds == labels).mean()
+    print(f"CLIP accuracy on Oxford-IIIT Pets: {acc * 100:.3f}%")
