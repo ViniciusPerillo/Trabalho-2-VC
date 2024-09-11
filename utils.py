@@ -12,8 +12,8 @@ warnings.filterwarnings('ignore')
 
 DEVICE = "cuda:0" if cuda.is_available() else "cpu"
 
-def load_dataset(path: Path = Path('./dataset/'), target_type: str = 'binary-category', download = False):
-    ds = OxfordIIITPet(root=path, split='test', target_types=target_type, download=download)
+def load_dataset(path: Path = Path('./dataset/'), target_type: str = 'binary-category'):
+    ds = OxfordIIITPet(root=path, split='test', target_types=target_type, download=True)
     return ds
 
 def load_processor():
