@@ -1,6 +1,8 @@
 from utils import *
 from plots import *
 from scipy.spatial.distance import cosine
+from pathlib import Path
+
 
 
 # TODO: Batch images?  --  should work normally due to np.stack
@@ -8,10 +10,10 @@ from scipy.spatial.distance import cosine
 # TODO: TD-1: Is this the best way to define marginal points?
 
 
-def run_experiment(prompts: list[str]):
+def run_experiment(prompts: list[str], path: Path = Path('./dataset/'), download=False):
 
     # Loading dataset, CLIP pre-processor and CLIP model
-    ds = load_dataset()
+    ds = load_dataset(path, target_type="category", download=download)
     processor = load_processor()
     model = load_model()
 
@@ -72,10 +74,10 @@ def run_experiment(prompts: list[str]):
         img.show()
 
 
-def run_accuracy_experiment():
+def run_accuracy_experiment(path: Path = Path('./dataset/'), download=False):
 
     # Loading dataset, CLIP pre-processor and CLIP model
-    ds = load_dataset(target_type="category")
+    ds = load_dataset(path, target_type="category", download=download)
     processor = load_processor()
     model = load_model()
 
