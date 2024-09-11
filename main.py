@@ -16,24 +16,7 @@ parser.add_argument('--experiment', help='bool to run experiment with a prompt',
 args = parser.parse_args()
 
 if __name__ == '__main__':
-
-    # prompts = [
-    #     "Cat",
-    #     "Dog"
-    # ]
-
-    # prompts = [
-    #     "A photo of a cat",
-    #     "A photo of a dog"
-    # ]
-
-    # prompts = [
-    #     "A photo of a cat, a type of pet",
-    #     "A photo of a dog, a type of pet"
-    # ]
-
-    # run_experiment(prompts)
-    
+    # arguments from parser
     dataset_path = args.dataset_path
     download_dataset = args.download_dataset
     prompt = args.prompt
@@ -41,8 +24,10 @@ if __name__ == '__main__':
 
     if experiment and prompt is not None:
         run_experiment(prompt, dataset_path, download_dataset)
+
     elif experiment and prompt is None:
         raise Exception("Error, prompt parser is None, please insert a prompt")
+    
     else:
         run_accuracy_experiment(dataset_path, download_dataset)
 
