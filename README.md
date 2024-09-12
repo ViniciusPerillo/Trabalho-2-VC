@@ -28,25 +28,12 @@ Podendo substituir cat e dog por qualquer prompt que seja necessário fazer um e
 
 ### Parametros do código
 
-Caso seja necessario fazer download do Dataset:
+Os parametros do código pode ser consultado com o seguinte comdando
 
 ```bash
---download_dataset True
+python3 main.py -h
 ```
 
-Caso o dataset esteja em outro diretório:
-
-```bash
---dataset_path path
-```
-
-Caso seja necessario executar um prompt especifico:
-
-```bash
---experiment True --prompt prompt1 'prompt 2'
-```
-
-OBS: caso o prompt tenha espaços entre a frase, utilize aspas simples ou aspas duplas
 
 ## Experimentos
 
