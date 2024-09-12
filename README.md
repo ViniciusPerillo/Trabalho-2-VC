@@ -46,4 +46,20 @@ Caso seja necessario executar um prompt especifico:
 --experiment True --prompt prompt1 'prompt 2'
 ```
 
-OBS: caso o prompt tenha espaços entre a frase, utilize aspas simples
+OBS: caso o prompt tenha espaços entre a frase, utilize aspas simples ou aspas duplas
+
+## Experimentos
+
+Para os experimentos exigidos pela descrição do trabalho, é necessario rodar os seguintes comandos
+
+```bash
+python3 main.py --prompt "cat" "dog"
+```
+
+```bash
+python3 main.py --prompt "A photo of a cat" "A photo of a dog"
+```
+
+```bash
+python3 main.py --prompt "A photo of a cat, a type of pet" "A photo of a dog, a type of pet"
+```
