@@ -114,37 +114,3 @@ def run_accuracy_experiment(path: Path = Path('./dataset/')):
     # Calculating and printing accuracy
     acc = (preds == labels).mean()
     print(f"CLIP accuracy on Oxford-IIIT Pets: {acc * 100:.3f}%")
-
-
-    # Creating prompts
-    class_names = [
-        "Abyssinian", "American Bulldog", "American Pit Bull Terrier", "Basset Hound",
-        "Beagle", "Bengal", "Birman", "Bombay", "Boxer", "British Shorthair", "Chihuahua",
-        "Egyptian Mau", "English Cocker Spaniel", "English Setter", "German Shorthaired",
-        "Great Pyrenees", "Havanese", "Japanese Chin", "Keeshond", "Leonberger", "Maine Coon",
-        "Miniature Pinscher", "Newfoundland", "Persian", "Pomeranian", "Pug", "Ragdoll", 
-        "Russian Blue", "Saint Bernard", "Samoyed","Scottish Terrier", "Shiba Inu", "Siamese", 
-        "Sphynx", "Staffordshire Bull Terrier", "Wheaten Terrier", "Yorkshire Terrier"
-    ]
-    prompts = [ f"A photo of a {c}" for c in class_names ]
-
-
-    # Running model and saving necessary information
-    logits_image = []
-    labels = []
-
-    for img, label in tqdm(ds, desc="Processing images"):
-        output = run_model(processor, model, [img], prompts)
-
-        logits_image.append( output.logits_per_image.cpu().detach().numpy() )
-        labels.append(       label                                          )
-
-
-    # Transforming logit activation in a probabilistic distribution
-    logits_image = np.stack(logits_image, axis=0).squeeze()
-    preds = logits_image.argmax(axis=1)
-
-    
-    # Calculating and printing accuracy
-    acc = (preds == labels).mean()
-    print(f"CLIP accuracy on Oxford-IIIT Pets: {acc * 100:.3f}%")
