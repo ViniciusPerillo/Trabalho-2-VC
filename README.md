@@ -1,4 +1,4 @@
-# Espaço Múltimodal e engenharia de prompt
+# Espaço Multimodal e Engenharia de Prompt
 Segundo trabalho avaliativo da disciplina de Visão Computacional, ministrada pelo Prof. Dr. Cesar H. Comin
 
 *Alunos:*
