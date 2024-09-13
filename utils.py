@@ -3,7 +3,7 @@ from pathlib import Path
 
 from torchvision.datasets import OxfordIIITPet
 from transformers import CLIPProcessor, CLIPModel
-from random import shuffle
+from numpy.random import default_rng
 from torch import cuda
 from tqdm import tqdm
 
@@ -40,12 +40,12 @@ def run_model(processor: CLIPProcessor,
 
 
 # TODO: Switch `shuffle` call to numpy? (for random_state)
-def sample_equally(dataset: OxfordIIITPet, n_images_each: int = 1000):
+def sample_equally(dataset: OxfordIIITPet, n_images_each: int = 1000, random_seed: int = 1917):
     cats = []
     dogs = []
 
     idxs = list(range(len(dataset)))
-    shuffle(idxs)
+    default_rng(random_seed).shuffle(idxs)
 
     for idx in tqdm(idxs, desc="Sampling images"):
         image, label = dataset[idx]

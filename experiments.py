@@ -10,7 +10,7 @@ from pathlib import Path
 # TODO: TD-1: Is this the best way to define marginal points?
 
 
-def run_experiment(prompts: list[str], path: Path = Path('./dataset/')):
+def run_experiment(prompts: list[str], path: Path = Path('./dataset/'), random_seed: int = 1917):
 
     # Loading dataset, CLIP pre-processor and CLIP model
     ds = load_dataset(path, target_type="binary-category")
@@ -19,7 +19,7 @@ def run_experiment(prompts: list[str], path: Path = Path('./dataset/')):
 
 
     # Sampling 1000 images of cats and dogs (cats come first)
-    images = sample_equally(ds)
+    images = sample_equally(ds, random_seed=random_seed)
 
 
     # Running model and saving necessary information
