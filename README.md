@@ -11,20 +11,20 @@ Segundo trabalho avaliativo da disciplina de Visão Computacional, ministrada pe
 Para o melhor fluxo das inferencias, é recomendado seguir os seguintes comandos:
 
 ### Acúracia do Dataset
-Executar o código de acuracia para todo o Datset
+Executar o código de acuracia para todo o dataset
 
 ```bash
 python3 main.py
 ```
 
 ### Com um prompt pré estabelecido
-Executar o código usando um prompt especifico:
+Executar o código usando prompts específicos:
 
 ```bash
-python3 main.py --experiment True --prompt 'dog' 'cat'
+python3 main.py --prompts "Cat" "Dog"
 ```
 
-Podendo substituir cat e dog por qualquer prompt que seja necessário fazer um experimento.
+Podendo substituir `"Cat"` e `"Dog"` por qualquer prompt que seja necessário fazer um experimento.
 
 ### Parametros do código
 
@@ -40,13 +40,13 @@ python3 main.py -h
 Para os experimentos exigidos pela descrição do trabalho, é necessario rodar os seguintes comandos
 
 ```bash
-python3 main.py --prompt "cat" "dog"
+python3 main.py --prompts "Cat" "Dog"
 ```
 
 ```bash
-python3 main.py --prompt "A photo of a cat" "A photo of a dog"
+python3 main.py --prompts "A photo of a cat" "A photo of a dog"
 ```
 
 ```bash
-python3 main.py --prompt "A photo of a cat, a type of pet" "A photo of a dog, a type of pet"
+python3 main.py --prompts "A photo of a cat, a type of pet" "A photo of a dog, a type of pet"
 ```
