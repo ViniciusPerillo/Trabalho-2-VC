@@ -6,47 +6,40 @@ Segundo trabalho avaliativo da disciplina de Visão Computacional, ministrada pe
 - Vitor Lopes Fabris ([tremefabris](https://github.com/tremefabris))
 - Vinicius Gonçalves Perillo ([ViniciusPerillo](https://github.com/ViniciusPerillo))
 
-## Como funciona
 
-Para o melhor fluxo das inferencias, é recomendado seguir os seguintes comandos:
+## Experimentos avaliativos
 
-### Acúracia do Dataset
-Executar o código de acuracia para todo o dataset
+Para os experimentos exigidos como forma de avaliação do 2º trabalho prático, rode os seguintes comandos:
 
-```bash
-python3 main.py
-```
-
-### Com um prompt pré estabelecido
-Executar o código usando prompts específicos:
-
+#### Comparação entre `"Cat"` e `"Dog"`
 ```bash
 python3 main.py --prompts "Cat" "Dog"
 ```
 
-Podendo substituir `"Cat"` e `"Dog"` por qualquer prompt que seja necessário fazer um experimento.
-
-### Parametros do código
-
-Os parametros do código pode ser consultado com o seguinte comdando
-
-```bash
-python3 main.py -h
-```
-
-
-## Experimentos
-
-Para os experimentos exigidos pela descrição do trabalho, é necessario rodar os seguintes comandos
-
-```bash
-python3 main.py --prompts "Cat" "Dog"
-```
-
+#### Comparação entre `"A photo of a cat"` e `"A photo of a dog"`
 ```bash
 python3 main.py --prompts "A photo of a cat" "A photo of a dog"
 ```
 
+#### Comparação entre `"A photo of a cat, a type of pet"` e `"A photo of a dog, a type of pet"`
 ```bash
 python3 main.py --prompts "A photo of a cat, a type of pet" "A photo of a dog, a type of pet"
+```
+
+#### Avaliação de acurácia do CLIP
+```bash
+python3 main.py
+```
+
+
+## Como funciona
+
+```bash
+usage: main.py [-h] [--dataset_path PATH] [--prompts "STR" "STR"] [--seed N]
+
+options:
+  -h, --help              show this help message and exit
+  --dataset_path PATH     Path for dataset (if non-existent, will be downloaded here) [Default: ./dataset/]
+  --prompts "STR" "STR"   Prompts to analyze. Absence means that CLIP accuracy will be calculated
+  --seed N                Number to seed randomized procedures [Default: 1917]
 ```
