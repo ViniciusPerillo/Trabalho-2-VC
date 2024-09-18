@@ -39,7 +39,6 @@ def run_model(processor: CLIPProcessor,
     return output
 
 
-# TODO: Switch `shuffle` call to numpy? (for random_state)
 def sample_equally(dataset: OxfordIIITPet, n_images_each: int = 1000, random_seed: int = 1917):
     cats = []
     dogs = []
